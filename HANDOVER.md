@@ -30,7 +30,7 @@ Een eenvoudige webapp die een fietser per routesegment toont hoeveel zon, verbli
 </current_state>
 
 <artifacts>
-- repo / branch: `C:\Users\jvane\dev\suninmyeyes` @ main, **nog geen commits** (alles untracked). Geen remote.
+- repo / branch: `C:\Users\jvane\dev\suninmyeyes` @ main, eerste commit `de8eea6` (v0.1). Geen remote. Git-identiteit lokaal: jvanerum.
 - **Specificatie:** `prd_zontraject_app.md`. In `design/stitch_minimalist_web_browser_interface/` staat een identieke kopie die nog weg mag; wacht op akkoord van de gebruiker.
 - **Ontwerp:** `design/stitch_minimalist_web_browser_interface/`
   - `dutch_solar_vector/DESIGN.md`: tokens; gebruik de tekst, niet de frontmatter;
@@ -86,7 +86,7 @@ De volledige lijst staat in AGENTS.md. Kort:
 </verification>
 
 <next_steps>
-1. Vraag of de eerste commit mag, en of de dubbele PRD in `design/` weg mag. Maak dan de commit met de co-author-trailer.
+1. ✅ Eerste commit gemaakt (`de8eea6`). Nog open: mag de dubbele PRD in `design/` weg? Starten kan ook met `.\start.ps1`; uv ontbreekt nog in de gewone PATH van de gebruiker (`winget install astral-sh.uv`).
 2. Verifieer verblinding live: kies een zonnige dag (bewolking < 70% in Open-Meteo) en een westwaartse rit 1–2 u voor zonsondergang, bv. Amersfoort → Utrecht. Controleer de rode segmenten in de Zon-weergave en de knop "Pas aan naar …".
 3. Maak de tijdlijn rustiger. Twee opties; de eenvoudigste eerst:
    - in `app.js` groepen korter dan ~0,5 km samenvoegen met de buren;
