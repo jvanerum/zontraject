@@ -1,5 +1,15 @@
 # PROGRESS — ZonTraject
 
+## 2026-10-25 16:12 — Handover
+- **Gedaan:** HANDOVER.md bijgewerkt en gearchiveerd in `handover/HANDOVER-2026-10-25-1612.md`.
+- **Geverifieerd:** pytest 37 geslaagd, ruff schoon. `main` staat 1 doc-commit voor op `origin/main`.
+- **Volgende:** de gebruiker pusht, installeert uv en test met `.\start.ps1`; daarna next_steps 2–5.
+
+## 2026-10-25 16:10 — Op GitHub
+- **Gedaan:** de gebruiker heeft de private repo jvanerum/zontraject aangemaakt en `main` gepusht. "Repository not found" kwam doordat de repo nog niet bestond.
+- **Geverifieerd:** `git ls-remote origin` geeft `main` = `991d1b4` = lokaal.
+- **Volgende:** zie HANDOVER.md, next_steps 2–5.
+
 ## 2026-10-25 15:49 — Handover
 - **Gedaan:** HANDOVER.md geschreven en gearchiveerd in `handover/HANDOVER-2026-10-25-1549.md`.
 - **Geverifieerd:** pytest 37 geslaagd, ruff schoon.

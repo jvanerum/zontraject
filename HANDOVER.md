@@ -2,7 +2,7 @@
 title: Handover — ZonTraject
 project: zontraject
 date: 2026-10-25
-time: 15:49
+time: 16:12
 phase: building
 ---
 
@@ -12,7 +12,7 @@ Een eenvoudige webapp die een fietser per routesegment toont hoeveel zon, verbli
 - verblinding met een zonnige voorspelling geverifieerd is;
 - de tijdlijn rustig leest;
 - de mobiele weergave werkt;
-- de eerste commit gemaakt is.
+- het foutpad getest is.
 </mission>
 
 <current_state>
@@ -25,12 +25,11 @@ Een eenvoudige webapp die een fietser per routesegment toont hoeveel zon, verbli
 - **Zwak punt:** in de stad bestaat de tijdlijn uit veel korte stukjes (segmenten van ≥250 m met wisselende rijrichting). Opeenvolgende segmenten met dezelfde toestand worden in de UI al samengevoegd, maar het blijft onrustig.
 - **Ontbreekt:**
   - foutafhandeling in de UI is getest noch verfijnd;
-  - de mobiele layout is niet nagekeken;
-  - er zijn geen commits.
+  - de mobiele layout is niet nagekeken.
 </current_state>
 
 <artifacts>
-- repo / branch: `C:\Users\jvane\dev\suninmyeyes` @ main, eerste commit `de8eea6` (v0.1). Geen remote. Git-identiteit lokaal: jvanerum.
+- repo / branch: `C:\Users\jvane\dev\suninmyeyes` @ main, **lokale doc-commits staan nog niet op GitHub; de gebruiker moet nog `git push` doen.** v0.1-code = `de8eea6`. Remote: private repo https://github.com/jvanerum/zontraject (`origin`, upstream `origin/main`). Git-identiteit lokaal: jvanerum. Pushen vanuit de agent-sessie lukt niet: Git Credential Manager kan daar geen login tonen. De gebruiker pusht zelf met `git push` in een eigen PowerShell-venster.
 - **Specificatie:** `prd_zontraject_app.md`. In `design/stitch_minimalist_web_browser_interface/` staat een identieke kopie die nog weg mag; wacht op akkoord van de gebruiker.
 - **Ontwerp:** `design/stitch_minimalist_web_browser_interface/`
   - `dutch_solar_vector/DESIGN.md`: tokens; gebruik de tekst, niet de frontmatter;
@@ -40,7 +39,7 @@ Een eenvoudige webapp die een fietser per routesegment toont hoeveel zon, verbli
   - `web/static/{index.html,app.js}`
   - `web/src/input.css` (Tailwind 4, `@theme static`)
   - `web/scripts/vendor.mjs` (kopieert Leaflet en de fonts naar `static/vendor`)
-- **Starten:** `cd web && npm install && npm run build`, daarna `uv run uvicorn zontraject.main:app --reload` → http://127.0.0.1:8000
+- **Starten:** `.\start.ps1` (PowerShell: bouwt de frontend eenmalig, opent de browser), of met de hand: `cd web && npm install && npm run build`, daarna `uv run uvicorn zontraject.main:app --reload` → http://127.0.0.1:8000
 - **Tests:** `uv run pytest` (37, zonder netwerk) en `uv run ruff check .`. Alles in één keer: `bash init.sh`.
 </artifacts>
 
@@ -72,7 +71,9 @@ De volledige lijst staat in AGENTS.md. Kort:
 </constraints>
 
 <verification>
-- Uitgevoerd op 2026-10-25 om 15:49: `uv run pytest` → 37 geslaagd; `ruff check` → schoon.
+- Uitgevoerd op 2026-10-25 om 16:12: `uv run pytest` → 37 geslaagd; `ruff check` → schoon.
+- GitHub: `git ls-remote origin` gaf `main` = `991d1b4` (vóór de laatste doc-commit).
+- `start.ps1`: alleen syntax-gecontroleerd, niet uitgevoerd.
 - Eerder deze sessie:
   - `npm run build` werkt (Tailwind v4.3.3);
   - de API is met curl getest (Utrecht → Amersfoort);
@@ -86,7 +87,7 @@ De volledige lijst staat in AGENTS.md. Kort:
 </verification>
 
 <next_steps>
-1. ✅ Eerste commit gemaakt (`de8eea6`). Nog open: mag de dubbele PRD in `design/` weg? Starten kan ook met `.\start.ps1`; uv ontbreekt nog in de gewone PATH van de gebruiker (`winget install astral-sh.uv`).
+1. Controleer dat de gebruiker `git push` heeft gedaan: `git status -sb` mag geen "ahead" tonen. Controleer of uv geïnstalleerd is (`winget install astral-sh.uv`) en of `.\start.ps1` werkt. Vraag of de dubbele PRD in `design/` weg mag.
 2. Verifieer verblinding live: kies een zonnige dag (bewolking < 70% in Open-Meteo) en een westwaartse rit 1–2 u voor zonsondergang, bv. Amersfoort → Utrecht. Controleer de rode segmenten in de Zon-weergave en de knop "Pas aan naar …".
 3. Maak de tijdlijn rustiger. Twee opties; de eenvoudigste eerst:
    - in `app.js` groepen korter dan ~0,5 km samenvoegen met de buren;
