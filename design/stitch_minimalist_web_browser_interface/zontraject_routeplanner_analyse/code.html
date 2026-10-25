@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+
+<html lang="nl"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>ZonTraject - Fietsroute Zon- &amp; Windplanner</title><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "slate-dark": "#334155", "surface-container": "#eaedff", "sun-amber-deep": "#B45309", "sky-blue-deep": "#0369A1", "primary-container": "#b15f00", "sun-amber-light": "#F59E0B", "secondary": "#006398", "on-primary": "#ffffff", "inverse-primary": "#ffb77d", "tertiary": "#006c49", "slate-border": "#E2E8F0", "on-tertiary": "#ffffff", "surface-bright": "#faf8ff", "on-error": "#ffffff", "wind-favorable-green": "#10B981", "on-tertiary-fixed-variant": "#005236", "wind-neutral-yellow": "#EAB308", "on-primary-fixed": "#2f1500", "slate-surface": "#F8FAFC", "alert-red": "#EF4444", "on-secondary-container": "#00476e", "primary": "#8d4b00", "error-container": "#ffdad6", "primary-fixed": "#ffdcc3", "inverse-on-surface": "#eef0ff", "on-secondary": "#ffffff", "on-primary-fixed-variant": "#6e3900", "surface-dim": "#d2d9f4", "on-background": "#131b2e", "on-surface": "#131b2e", "tertiary-container": "#00a572", "alert-red-border": "#FCA5A5", "secondary-container": "#5bb8fe", "error": "#ba1a1a", "on-primary-container": "#fffbff", "on-surface-variant": "#554336", "slate-muted": "#64748B", "background": "#faf8ff", "on-secondary-fixed-variant": "#004b73", "inverse-surface": "#283044", "surface-variant": "#dae2fd", "on-secondary-fixed": "#001d31", "secondary-fixed": "#cce5ff", "surface-container-lowest": "#ffffff", "on-tertiary-container": "#00311f", "surface-tint": "#904d00", "tertiary-fixed": "#6ffbbe", "surface": "#faf8ff", "outline-variant": "#dbc2b0", "outline": "#887364", "alert-red-bg": "#FEF2F2", "sky-blue-light": "#38BDF8", "secondary-fixed-dim": "#93ccff", "tertiary-fixed-dim": "#4edea3", "surface-container-low": "#f2f3ff", "surface-container-highest": "#dae2fd", "primary-fixed-dim": "#ffb77d", "surface-container-high": "#e2e7ff", "on-tertiary-fixed": "#002113", "on-error-container": "#93000a" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-md": "0.75rem", "space-lg": "1.25rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter": "1rem", "margin": "1.5rem", "space-xl": "2rem", "margin-mobile": "1rem" }, "fontFamily": { "label-data": ["JetBrains Mono"], "headline-lg": ["Inter"], "metric-display-mobile": ["JetBrains Mono"], "headline-md": ["Inter"], "metric-display": ["JetBrains Mono"], "label-ui": ["Inter"], "body-sm": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "headline-xl-mobile": ["Inter"] }, "fontSize": { "label-data": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "metric-display-mobile": ["24px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "metric-display": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "label-ui": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }] } } } };</script></head><body class="bg-slate-surface text-on-surface font-body-md text-body-md"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface-container-lowest/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-margin flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md"><a class="flex items-center gap-space-sm group" data-path="routeplanner-&amp;-analyse" href="#"><div class="flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container-high text-primary group-hover:bg-primary-fixed transition-colors"><span class="material-symbols-outlined text-[20px]">directions_bike</span></div><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">ZonTraject</span><span class="material-symbols-outlined text-sun-amber-light text-[18px]">wb_sunny</span></div></a><div class="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-DEFAULT bg-surface-container text-on-surface-variant font-label-data text-label-data uppercase tracking-wider"><span class="w-1.5 h-1.5 rounded-full bg-sun-amber-deep"></span><span>v1.0 • Streamlit / Web UI</span></div></div><nav class="hidden md:flex items-center gap-1" data-active-classes="bg-surface-container-high text-on-surface font-semibold rounded-lg"><a aria-current="page" class="px-space-md py-1.5 transition-colors bg-surface-container-high text-on-surface font-semibold rounded-lg" data-path="routeplanner-&amp;-analyse" href="#">Routeplanner &amp; Analyse</a><a class="px-space-md py-1.5 rounded-lg font-label-ui text-label-ui text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="hoe-het-werkt" href="#">Hoe het werkt</a><a class="px-space-md py-1.5 rounded-lg font-label-ui text-label-ui text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="documentatie-/-api" href="#">Documentatie / API</a></nav><div class="flex items-center gap-space-md"><div class="hidden lg:flex items-center gap-2 px-space-md py-1 rounded-full bg-surface-container-low text-tertiary font-label-data text-label-data border border-slate-border"><span class="w-2 h-2 rounded-full bg-wind-favorable-green animate-pulse"></span><span>Open-Meteo &amp; OSRM Actief</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-slate-surface min-h-[calc(100vh-4rem)]"><div class="flex flex-col w-full">
+<!-- Top Cockpit Overview / Page Headline Block -->
+<section class="max-w-7xl mx-auto w-full px-margin pt-6 pb-4">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="px-2 py-0.5 rounded-DEFAULT bg-primary text-on-primary font-label-data text-label-data tracking-wider uppercase">Live Telemetrie</span>
+<span class="font-label-data text-label-data text-slate-muted">NL/FL Fietsnetwerk • OSRM + Solar Vector Engine</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight">ZonTraject — Fietsroute Zon- &amp; Windplanner</h1>
+<p class="font-body-md text-body-md text-slate-muted mt-1 max-w-2xl">
+          Bereken exact hoeveel zon, schaduw, verblinding en tegenwind je ervaart tijdens je rit van A naar B met dynamische zonhoogte- en windvectormodellering.
+        </p>
+</div>
+<!-- Quick Status Badges -->
+<div class="flex items-center gap-2 flex-wrap">
+<div class="flex items-center gap-2 bg-surface-container-lowest px-3 py-1.5 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-sun-amber-deep text-[18px]">wb_sunny</span>
+<div class="flex flex-col">
+<span class="font-label-data text-label-data text-slate-muted uppercase">Solar Azimut / Elevatie</span>
+<span class="font-label-ui text-label-ui text-on-surface font-semibold">248° ZW • 14° Laagstaand</span>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-lowest px-3 py-1.5 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[18px]">air</span>
+<div class="flex flex-col">
+<span class="font-label-data text-label-data text-slate-muted uppercase">Actuele Wind</span>
+<span class="font-label-ui text-label-ui text-on-surface font-semibold">18 km/u (3 Bft) • ZZW</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Split Cockpit: Left Parameters (4 cols) | Right Analysis (8 cols) -->
+<section class="max-w-7xl mx-auto w-full px-margin pb-16">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- LEFT COLUMN: Parameter Input Panel -->
+<div class="lg:col-span-4 flex flex-col gap-5">
+<!-- Form Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-5 flex flex-col gap-5">
+<div class="flex items-center justify-between pb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Routeparameters</h2>
+</div>
+<span class="font-label-data text-label-data text-tertiary bg-surface-container-low px-2 py-0.5 rounded-DEFAULT">22.4 km traject</span>
+</div>
+<!-- Address Inputs -->
+<div class="flex flex-col gap-3">
+<div>
+<label class="block font-label-ui text-label-ui text-slate-dark mb-1 flex items-center justify-between">
+<span>Startadres (Punt A)</span>
+<span class="font-label-data text-slate-muted">Lat 52.089, Lon 5.110</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-tertiary text-[18px]">trip_origin</span>
+<input class="w-full bg-slate-surface rounded-lg pl-9 pr-3 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container-lowest" id="input-origin" type="text" value="Utrecht Centraal, Stationsplein"/>
+</div>
+</div>
+<div>
+<label class="block font-label-ui text-label-ui text-slate-dark mb-1 flex items-center justify-between">
+<span>Eindadres (Punt B)</span>
+<span class="font-label-data text-slate-muted">Lat 52.155, Lon 5.387</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-alert-red text-[18px]">location_on</span>
+<input class="w-full bg-slate-surface rounded-lg pl-9 pr-3 py-2 font-body-md text-body-md text-on-surface focus:outline-none focus:bg-surface-container-lowest" id="input-destination" type="text" value="Amersfoort Varkensmarkt, Centrum"/>
+</div>
+</div>
+</div>
+<!-- Departure Time & Date -->
+<div class="grid grid-cols-2 gap-3 pt-2">
+<div>
+<label class="block font-label-ui text-label-ui text-slate-dark mb-1">Vertrekdatum</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-slate-muted text-[16px]">calendar_today</span>
+<input class="w-full bg-slate-surface rounded-lg pl-8 pr-2 py-1.5 font-label-data text-label-data text-on-surface cursor-default" readonly="" type="text" value="Vandaag (28 Apr)"/>
+</div>
+</div>
+<div>
+<label class="block font-label-ui text-label-ui text-slate-dark mb-1">Vertrektijd</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-2.5 text-sun-amber-deep text-[16px]">schedule</span>
+<input class="w-full bg-slate-surface rounded-lg pl-8 pr-2 py-1.5 font-label-data text-label-data text-on-surface focus:outline-none focus:bg-surface-container-lowest" id="departure-time-input" type="text" value="17:15 uur"/>
+</div>
+</div>
+</div>
+<!-- Speed Profile Selector (Segmented) -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="font-label-ui text-label-ui text-slate-dark">Fietstype &amp; Gemiddelde Snelheid</label>
+<span class="font-label-data text-label-data text-primary font-semibold" id="speed-label">25 km/u (ETA ~54 min)</span>
+</div>
+<div class="grid grid-cols-3 gap-1.5 bg-slate-surface p-1 rounded-lg">
+<button class="speed-btn py-2 px-1 text-center rounded-DEFAULT font-label-ui text-label-ui text-slate-muted hover:text-on-surface transition-all flex flex-col items-center" onclick="selectSpeed(18, 'Stadsfiets', '18 km/u (ETA ~75 min)', this)" type="button">
+<span class="material-symbols-outlined text-[18px] mb-0.5">pedal_bike</span>
+<span>Stad</span>
+<span class="font-label-data text-[10px]">18 km/u</span>
+</button>
+<button class="speed-btn active-speed py-2 px-1 text-center rounded-DEFAULT font-label-ui text-label-ui bg-surface-container-lowest text-primary shadow-sm transition-all flex flex-col items-center" onclick="selectSpeed(25, 'E-bike', '25 km/u (ETA ~54 min)', this)" type="button">
+<span class="material-symbols-outlined text-[18px] mb-0.5">electric_bike</span>
+<span>E-bike</span>
+<span class="font-label-data text-[10px] font-semibold">25 km/u</span>
+</button>
+<button class="speed-btn py-2 px-1 text-center rounded-DEFAULT font-label-ui text-label-ui text-slate-muted hover:text-on-surface transition-all flex flex-col items-center" onclick="selectSpeed(35, 'Speed Pedelec', '35 km/u (ETA ~38 min)', this)" type="button">
+<span class="material-symbols-outlined text-[18px] mb-0.5">moped</span>
+<span>Pedelec</span>
+<span class="font-label-data text-[10px]">35 km/u</span>
+</button>
+</div>
+</div>
+<!-- Preferences / Filters (PRD Compliant) -->
+<div class="pt-2 flex flex-col gap-2.5">
+<span class="font-label-ui text-label-ui text-slate-dark uppercase tracking-wider">Voorkeursfilters</span>
+<label class="flex items-start gap-3 p-2.5 rounded-lg bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-4 h-4 accent-primary rounded cursor-pointer" id="pref-glare" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-ui text-label-ui text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sun-amber-deep text-[16px]">visibility_off</span>
+                  Vermijd zon in de ogen
+                </span>
+<span class="font-label-data text-[10px] text-slate-muted leading-tight mt-0.5">
+                  Alarmeert bij zonhoogte ≤ 25° en koersafwijking &lt; 30°
+                </span>
+</div>
+</label>
+<label class="flex items-start gap-3 p-2.5 rounded-lg bg-slate-surface hover:bg-surface-container-low transition-colors cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-4 h-4 accent-primary rounded cursor-pointer" id="pref-headwind" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label-ui text-label-ui text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-alert-red text-[16px]">air</span>
+                  Vermijd tegenwind
+                </span>
+<span class="font-label-data text-[10px] text-slate-muted leading-tight mt-0.5">
+                  Alarmeert bij relatieve windhoek &lt; 45° t.o.v. rijrichting
+                </span>
+</div>
+</label>
+</div>
+<!-- Main CTA Calculation Button -->
+<div class="pt-2">
+<button class="w-full bg-sun-amber-deep hover:bg-primary transition-all text-on-primary py-3 px-4 rounded-lg font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-sm active:scale-[0.99]" id="calc-button" onclick="triggerRecalculation()" type="button">
+<span class="material-symbols-outlined text-[20px]">calculate</span>
+<span>Bereken Route &amp; Profiel</span>
+</button>
+<div class="flex items-center justify-between text-slate-muted font-label-data text-label-data mt-2 px-1">
+<span class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-wind-favorable-green"></span>
+                OSRM + Open-Meteo API
+              </span>
+<span>Latency ~1.2s</span>
+</div>
+</div>
+</div>
+<!-- Mini Telemetry Card: Quick Stats Snapshot -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 flex flex-col gap-2.5">
+<span class="font-label-data text-label-data uppercase tracking-wider text-slate-muted">Geheugen &amp; Route Profiel</span>
+<div class="flex items-center justify-between py-1">
+<span class="font-body-sm text-body-sm text-slate-dark">Totale Ritafstand</span>
+<span class="font-label-data text-label-data text-on-surface font-semibold">22.4 km (48 segmenten)</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-body-sm text-body-sm text-slate-dark">Hoofdrichting Traject</span>
+<span class="font-label-data text-label-data text-on-surface font-semibold">68° ONO (Noordoost)</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-body-sm text-body-sm text-slate-dark">Hoogteprofiel</span>
+<span class="font-label-data text-label-data text-on-surface font-semibold">+42m / -38m (Vlak/Glooiend)</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<span class="font-body-sm text-body-sm text-slate-dark">UV-index &amp; Bewolking</span>
+<span class="font-label-data text-label-data text-sun-amber-deep font-semibold">UV 2.4 • 15% Hoge Sluier</span>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Analysis Dashboard & Visualization -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- DEPARTURE ADVISOR BANNER (High Visibility Recommendation) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-5 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4" id="smart-advisor-banner">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-sun-amber-deep"></div>
+<div class="flex items-start gap-3.5 pl-2">
+<div class="w-10 h-10 rounded-lg bg-alert-red-bg flex items-center justify-center text-alert-red shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[24px]">wb_twilight</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-label-ui text-label-ui text-alert-red uppercase tracking-wider font-semibold">Zon- &amp; Wind Risico Gedetecteerd</span>
+<span class="font-label-data text-[10px] bg-alert-red-bg text-alert-red px-1.5 py-0.2 rounded-DEFAULT">Km 12.0 – 19.2</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface mt-1">
+                Tussen <span class="font-semibold text-sun-amber-deep">km 12 en km 19</span> fiets je pal tegen de laagstaande namiddagzon in (elevatie 14°). 
+                <span class="font-semibold text-tertiary">Slim Vertrekadvies:</span> Als je 45 minuten later vertrekt (18:00u), daalt de verblinding met <span class="font-bold text-tertiary">82%</span> en draait de wind gunstiger mee!
+              </p>
+</div>
+</div>
+<div class="shrink-0 pl-2 md:pl-0 w-full md:w-auto">
+<button class="w-full md:w-auto bg-primary hover:bg-sun-amber-deep text-on-primary px-4 py-2.5 rounded-lg font-label-ui text-label-ui flex items-center justify-center gap-2 shadow-sm transition-all whitespace-nowrap" onclick="applySmartDepartureTime()" type="button">
+<span class="material-symbols-outlined text-[18px]">update</span>
+<span>Pas aan naar 18:00 (+45 min)</span>
+</button>
+</div>
+</div>
+<!-- KPI METERS (Zon-meter & Wind-meter) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card 1: Zon-meter -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sun-amber-deep text-[20px]">light_mode</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Zon-blootstelling</span>
+</div>
+<span class="font-label-data text-label-data text-slate-muted uppercase">Zonnehoogte 14° → 8°</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="font-metric-display text-metric-display text-on-surface tracking-tight">64%</span>
+<span class="font-label-ui text-label-ui text-slate-muted">Volle zon (aangenaam)</span>
+</div>
+<!-- Segmented condition progress bar -->
+<div class="w-full h-3 rounded-DEFAULT overflow-hidden flex bg-surface-container mb-3">
+<div class="bg-sun-amber-light h-full" style="width: 64%;" title="64% Volle aangename zon"></div>
+<div class="bg-slate-dark/40 h-full" style="width: 24%;" title="24% Schaduw / bewolking"></div>
+<div class="bg-alert-red h-full" style="width: 12%;" title="12% Verblinding (laagstaand in ogen)"></div>
+</div>
+<!-- Legend distribution items -->
+<div class="grid grid-cols-3 gap-2 pt-1 font-label-data text-label-data">
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-sun-amber-deep">
+<span class="w-2 h-2 rounded-full bg-sun-amber-light inline-block"></span>
+                  64% Zon
+                </span>
+<span class="text-slate-muted text-[10px]">14.3 km</span>
+</div>
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-slate-dark">
+<span class="w-2 h-2 rounded-full bg-slate-dark/40 inline-block"></span>
+                  24% Schaduw
+                </span>
+<span class="text-slate-muted text-[10px]">5.4 km</span>
+</div>
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-alert-red font-semibold">
+<span class="w-2 h-2 rounded-full bg-alert-red inline-block"></span>
+                  12% Verblinding
+                </span>
+<span class="text-slate-muted text-[10px]">2.7 km</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Wind-meter -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">air</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Windprofiel &amp; Kracht</span>
+</div>
+<span class="font-label-data text-label-data text-secondary uppercase font-semibold">18 km/u • 3 Bft ZZW</span>
+</div>
+<div class="flex items-baseline gap-2 mb-3">
+<span class="font-metric-display text-metric-display text-wind-favorable-green tracking-tight">45%</span>
+<span class="font-label-ui text-label-ui text-slate-muted">Wind mee (gunstige koers)</span>
+</div>
+<!-- Segmented wind bar -->
+<div class="w-full h-3 rounded-DEFAULT overflow-hidden flex bg-surface-container mb-3">
+<div class="bg-wind-favorable-green h-full" style="width: 45%;" title="45% Wind mee"></div>
+<div class="bg-secondary h-full" style="width: 35%;" title="35% Zijwind"></div>
+<div class="bg-alert-red h-full" style="width: 20%;" title="20% Tegenwind"></div>
+</div>
+<!-- Wind breakdown items -->
+<div class="grid grid-cols-3 gap-2 pt-1 font-label-data text-label-data">
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-tertiary">
+<span class="w-2 h-2 rounded-full bg-wind-favorable-green inline-block"></span>
+                  45% Mee
+                </span>
+<span class="text-slate-muted text-[10px]">Koers &gt;135°</span>
+</div>
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary inline-block"></span>
+                  35% Zijwind
+                </span>
+<span class="text-slate-muted text-[10px]">Koers 45-135°</span>
+</div>
+<div class="flex flex-col">
+<span class="flex items-center gap-1 text-alert-red font-semibold">
+<span class="w-2 h-2 rounded-full bg-alert-red inline-block"></span>
+                  20% Tegen
+                </span>
+<span class="text-slate-muted text-[10px]">Koers &lt;45°</span>
+</div>
+</div>
+</div>
+</div>
+<!-- INTERACTIVE ROUTE MAP TELEMETRY CANVAS -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 flex flex-col gap-3">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">map</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Trajectkaart: Utrecht Centraal → Amersfoort</h3>
+</div>
+<p class="font-body-sm text-body-sm text-slate-muted">Gekleurde segmenten tonen real-time verblindingsrisico en windinval.</p>
+</div>
+<!-- Legend Pills -->
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-DEFAULT bg-alert-red-bg text-alert-red font-label-data text-[10px] font-semibold">
+<span class="w-2 h-2 rounded-full bg-alert-red"></span> Verblinding / Tegenwind
+              </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-DEFAULT bg-surface-container text-sun-amber-deep font-label-data text-[10px]">
+<span class="w-2 h-2 rounded-full bg-sun-amber-light"></span> Gunstige Zon / Mee
+              </span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-DEFAULT bg-slate-surface text-slate-dark font-label-data text-[10px]">
+<span class="w-2 h-2 rounded-full bg-slate-dark"></span> Bos / Schaduw
+              </span>
+</div>
+</div>
+<!-- SVG Vector Route Visualization with Realistic Coordinates & Interactivity -->
+<div class="relative w-full h-[360px] bg-slate-surface rounded-lg overflow-hidden flex items-center justify-center">
+<!-- Map Grid & Geographic Backdrop Pattern -->
+<svg class="absolute inset-0 w-full h-full text-slate-border" height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid-pattern" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" stroke-dasharray="2,2" stroke-width="0.75"></path>
+</pattern>
+<!-- Sun glare gradient -->
+<radialgradient cx="80%" cy="30%" id="sun-glare-glow" r="60%">
+<stop offset="0%" stop-color="#F59E0B" stop-opacity="0.25"></stop>
+<stop offset="70%" stop-color="#EF4444" stop-opacity="0.05"></stop>
+<stop offset="100%" stop-color="#F8FAFC" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+<rect fill="url(#sun-glare-glow)" height="100%" width="100%"></rect>
+<!-- Subtle topography / green forest patches (Panbos / Zeisterbos mockup) -->
+<path d="M 330,120 Q 390,90 450,130 T 520,180 Q 480,240 400,220 Z" fill="#10B981" fill-opacity="0.08"></path>
+<text class="font-label-data text-[9px] fill-tertiary select-none opacity-60" x="390" y="165">Zeister Bossen (Schaduw)</text>
+<path d="M 120,200 Q 180,180 220,210 T 260,260 Q 200,280 140,260 Z" fill="#006398" fill-opacity="0.05"></path>
+<text class="font-label-data text-[9px] fill-secondary select-none opacity-60" x="160" y="240">Kromme Rijn Vallei</text>
+</svg>
+<!-- Vector Route Path Segments -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="xMidYMid meet" viewbox="0 0 760 360">
+<!-- Seg 1: Utrecht Centraal naar De Bilt (Aangename zon / zijwind) -->
+<path class="cursor-pointer transition-all hover:stroke-[8] hover:stroke-sun-amber-deep" d="M 70,250 L 160,210 L 240,195" fill="none" onmouseover="showTooltip('Seg 1: Utrecht → De Bilt (km 0-6)', '17:15', '18 km/u', 'Zon 18° ZW (Zijkant)', 'Wind ZZW 17 km/u (Zijwind - neutraal)')" stroke="#F59E0B" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<!-- Seg 2: De Bilt naar Zeist / Huis ter Heide (Bos & Schaduwrijk) -->
+<path class="cursor-pointer transition-all hover:stroke-[8] hover:stroke-slate-dark" d="M 240,195 L 340,180 L 430,165" fill="none" onmouseover="showTooltip('Seg 2: Zeisterbossen (km 6-12)', '17:30', '25 km/u', 'Zon 16° (80% Schaduw door boomkruinen)', 'Wind ZZW 12 km/u (Gedempt)')" stroke="#64748B" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<!-- Seg 3: Soesterberg / Amersfoortseweg (CRITISCH: Pal tegen laagstaande namiddagzon in & tegenwind) -->
+<path class="cursor-pointer transition-all hover:stroke-[9] animate-pulse" d="M 430,165 L 530,135 L 610,105" fill="none" onmouseover="showTooltip('Seg 3: N237 Vliegbasis (km 12-19) ⚠️ VERBLINDING', '17:48', '25 km/u', 'Zon 14° ZW (Recht in ogen: hoek 12°)', 'Wind ZZW 22 km/u (Zware tegenwind)')" stroke="#EF4444" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"></path>
+<!-- Seg 4: Amersfoort Centrum binnenkomst (Wind mee & afgeschermd) -->
+<path class="cursor-pointer transition-all hover:stroke-[8] hover:stroke-tertiary" d="M 610,105 L 665,95 L 700,90" fill="none" onmouseover="showTooltip('Seg 4: Amersfoort Varkensmarkt (km 19-22.4)', '18:07', '22 km/u', 'Zon 10° (Achter gebouwen)', 'Wind ZZW 14 km/u (Wind mee)')" stroke="#10B981" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"></path>
+<!-- Origin Marker: Utrecht -->
+<g transform="translate(70, 250)">
+<circle fill="#006c49" r="9"></circle>
+<circle fill="#ffffff" r="4"></circle>
+<text class="font-label-data text-[11px] font-bold fill-on-surface" x="-25" y="24">Utrecht CS</text>
+<text class="font-label-data text-[9px] fill-slate-muted" x="-25" y="36">Km 0.0 (17:15)</text>
+</g>
+<!-- Intermediate Waypoint: Zeist -->
+<g transform="translate(340, 180)">
+<circle fill="#64748B" r="4"></circle>
+<text class="font-label-data text-[10px] fill-slate-muted" x="-12" y="-10">Zeist (km 8.5)</text>
+</g>
+<!-- High Glare Zone Alert Icon -->
+<g transform="translate(520, 120)">
+<circle fill="#EF4444" fill-opacity="0.2" r="12"></circle>
+<circle fill="#EF4444" r="8"></circle>
+<text class="font-label-data text-[10px] font-bold fill-white" x="-3" y="4">!</text>
+<text class="font-label-data text-[10px] font-bold fill-alert-red bg-white px-1" x="-40" y="-12">Verblinding km 12-19</text>
+</g>
+<!-- Destination Marker: Amersfoort -->
+<g transform="translate(700, 90)">
+<circle fill="#8d4b00" r="9"></circle>
+<circle fill="#ffffff" r="4"></circle>
+<text class="font-label-data text-[11px] font-bold fill-on-surface" x="-35" y="-14">Amersfoort Varkensmarkt</text>
+<text class="font-label-data text-[9px] fill-slate-muted" x="-15" y="22">Km 22.4 (ETA 18:09)</text>
+</g>
+<!-- Live Wind Vector Arrow Visualizer on map -->
+<g transform="translate(640, 280)">
+<rect class="shadow-sm" fill="#ffffff" height="65" opacity="0.95" rx="6" width="115" x="-55" y="-35"></rect>
+<text class="font-label-data text-[10px] uppercase font-bold fill-secondary" x="-45" y="-18">Windvector ZZW</text>
+<line marker-end="url(#arrow)" stroke="#006398" stroke-width="3" x1="-30" x2="10" y1="12" y2="-10"></line>
+<text class="font-label-data text-[9px] fill-slate-muted" x="-45" y="22">18 km/u • 210°</text>
+</g>
+<!-- Sun Position Indicator on Map -->
+<g transform="translate(180, 80)">
+<circle fill="#F59E0B" fill-opacity="0.2" r="16"></circle>
+<circle fill="#F59E0B" r="8"></circle>
+<text class="font-label-data text-[10px] font-bold fill-sun-amber-deep" x="14" y="4">Zonstand: Azimut 248° / Elevatie 14°</text>
+</g>
+</svg>
+<!-- Dynamic Segment Hover Tooltip (Mockup) -->
+<div class="absolute bottom-4 left-4 bg-surface-container-lowest/95 backdrop-blur-md p-3 rounded-lg shadow-md max-w-sm pointer-events-none transition-opacity duration-200" id="route-tooltip">
+<div class="flex items-center justify-between gap-3 mb-1">
+<span class="font-label-ui text-label-ui font-semibold text-alert-red" id="tooltip-segment">Seg 3: N237 Amersfoortseweg (Km 14.2)</span>
+<span class="font-label-data text-label-data text-slate-muted" id="tooltip-eta">ETA 17:48</span>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-1 font-label-data text-label-data text-on-surface">
+<div>Zonstand: <span class="font-semibold text-sun-amber-deep" id="tooltip-sun">14° Elevatie (In ogen)</span></div>
+<div>Rijrichting: <span class="font-semibold">64° ONO</span></div>
+<div class="col-span-2">Wind: <span class="font-semibold text-alert-red" id="tooltip-wind">ZZW 22 km/u (Relatieve hoek 28° - Tegenwind)</span></div>
+</div>
+</div>
+<!-- Compass Rose Minimal Overlay -->
+<div class="absolute top-3 right-3 bg-surface-container-lowest/90 px-2 py-1.5 rounded-lg flex flex-col items-center shadow-sm">
+<span class="font-label-data text-[10px] font-bold text-alert-red">N</span>
+<span class="material-symbols-outlined text-[16px] text-slate-muted">navigation</span>
+</div>
+</div>
+</div>
+<!-- DYNAMISCHE TIJDLIJN PER SEGMENT (PRD Telemetry Breakdown) -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-4 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">view_timeline</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Dynamische Segmenttijdlijn</h3>
+</div>
+<span class="font-label-data text-label-data text-slate-muted">Geactiveerd op 25 km/u (E-bike profiel)</span>
+</div>
+<!-- Table Container with Horizontal Scroll for Mobile -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-label-data text-label-data">
+<thead class="bg-slate-surface text-slate-dark uppercase tracking-wider text-[10px]">
+<tr>
+<th class="py-2.5 px-3 rounded-l-DEFAULT">Segment / Km</th>
+<th class="py-2.5 px-3">ETA</th>
+<th class="py-2.5 px-3">Rijrichting</th>
+<th class="py-2.5 px-3">Zonnestand (α / <i>h</i>)</th>
+<th class="py-2.5 px-3">Relatieve Wind</th>
+<th class="py-2.5 px-3 rounded-r-DEFAULT text-right">Conditie-Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-surface">
+<!-- Segment 1 -->
+<tr class="hover:bg-slate-surface/80 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-sun-amber-light"></span>
+<span>0.0 – 6.2 km (Utrecht CS → De Bilt)</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-muted">17:15 – 17:29</td>
+<td class="py-3 px-3 text-on-surface">072° (ONO)</td>
+<td class="py-3 px-3">
+<span class="text-sun-amber-deep">248° / 18°</span>
+<span class="text-slate-muted block text-[10px]">Zon van opzij (Δ 176°)</span>
+</td>
+<td class="py-3 px-3">
+<span class="text-secondary">ZZW 17 km/u</span>
+<span class="text-slate-muted block text-[10px]">Zijwind (hoek 138°)</span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-block px-2 py-0.5 rounded-DEFAULT bg-surface-container text-sun-amber-deep font-semibold">
+                      Aangename zon
+                    </span>
+</td>
+</tr>
+<!-- Segment 2 -->
+<tr class="hover:bg-slate-surface/80 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-slate-dark"></span>
+<span>6.2 – 12.0 km (Zeisterbossen)</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-muted">17:30 – 17:44</td>
+<td class="py-3 px-3 text-on-surface">084° (O)</td>
+<td class="py-3 px-3">
+<span class="text-slate-muted">252° / 16°</span>
+<span class="text-slate-muted block text-[10px]">Dichte beschutting</span>
+</td>
+<td class="py-3 px-3">
+<span class="text-secondary">ZZW 12 km/u</span>
+<span class="text-slate-muted block text-[10px]">Luwte door bos</span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-block px-2 py-0.5 rounded-DEFAULT bg-slate-surface text-slate-dark">
+                      Schaduwrijk
+                    </span>
+</td>
+</tr>
+<!-- Segment 3: ALERT ROW (Verblinding) -->
+<tr class="bg-alert-red-bg/70 hover:bg-alert-red-bg transition-colors">
+<td class="py-3 px-3 font-semibold text-alert-red">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span>12.0 – 19.2 km (N237 Vliegbasis)</span>
+</div>
+</td>
+<td class="py-3 px-3 text-alert-red font-medium">17:45 – 18:02</td>
+<td class="py-3 px-3 text-alert-red font-medium">238° (ZW keerlus)</td>
+<td class="py-3 px-3">
+<span class="text-alert-red font-bold">255° / 14°</span>
+<span class="text-alert-red block text-[10px] font-semibold">Zon in ogen (Δ 17°)</span>
+</td>
+<td class="py-3 px-3">
+<span class="text-alert-red font-bold">ZZW 22 km/u</span>
+<span class="text-alert-red block text-[10px]">Vol tegenwind (Δ 28°)</span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-block px-2 py-0.5 rounded-DEFAULT bg-alert-red text-on-primary font-bold animate-pulse">
+                      Verblinding &amp; Tegen
+                    </span>
+</td>
+</tr>
+<!-- Segment 4 -->
+<tr class="hover:bg-slate-surface/80 transition-colors">
+<td class="py-3 px-3 font-semibold text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-wind-favorable-green"></span>
+<span>19.2 – 22.4 km (Amersfoort Ring → Centrum)</span>
+</div>
+</td>
+<td class="py-3 px-3 text-slate-muted">18:03 – 18:09</td>
+<td class="py-3 px-3 text-on-surface">048° (NO)</td>
+<td class="py-3 px-3">
+<span class="text-sun-amber-deep">258° / 10°</span>
+<span class="text-slate-muted block text-[10px]">Achter rug (Δ 210°)</span>
+</td>
+<td class="py-3 px-3">
+<span class="text-wind-favorable-green font-semibold">ZZW 14 km/u</span>
+<span class="text-wind-favorable-green block text-[10px]">Wind mee (hoek 162°)</span>
+</td>
+<td class="py-3 px-3 text-right">
+<span class="inline-block px-2 py-0.5 rounded-DEFAULT bg-surface-container-low text-tertiary font-semibold">
+                      Wind mee / Vrij
+                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Bottom Time-shift simulation pill actions -->
+<div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+<span class="font-label-data text-label-data text-slate-muted">Simuleer vertrektijd verschuiving:</span>
+<div class="flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded-DEFAULT bg-slate-surface hover:bg-surface-container text-slate-dark font-label-data text-label-data transition-colors" onclick="shiftDeparture(-30)" type="button">-30m (16:45)</button>
+<button class="px-2.5 py-1 rounded-DEFAULT bg-slate-surface hover:bg-surface-container text-slate-dark font-label-data text-label-data transition-colors" onclick="shiftDeparture(15)" type="button">+15m (17:30)</button>
+<button class="px-2.5 py-1 rounded-DEFAULT bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary-fixed font-label-data text-label-data font-semibold transition-colors" onclick="shiftDeparture(45)" type="button">+45m (Aanbevolen)</button>
+<button class="px-2.5 py-1 rounded-DEFAULT bg-slate-surface hover:bg-surface-container text-slate-dark font-label-data text-label-data transition-colors" onclick="shiftDeparture(60)" type="button">+60m (18:15)</button>
+</div>
+</div>
+</div>
+<!-- Technical Integration Specs / Telemetry Architecture (PRD Section 4) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<div class="bg-surface-container-lowest p-3 rounded-lg shadow-sm flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[24px]">satellite_alt</span>
+<div class="flex flex-col">
+<span class="font-label-ui text-label-ui text-on-surface font-semibold">Solar Elevation Model</span>
+<span class="font-label-data text-label-data text-slate-muted">NREL SPA Formule ±0.01°</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg shadow-sm flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[24px]">air</span>
+<div class="flex flex-col">
+<span class="font-label-ui text-label-ui text-on-surface font-semibold">Open-Meteo V1.4</span>
+<span class="font-label-data text-label-data text-slate-muted">Uurlijkse windvectorresolutie</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg shadow-sm flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[24px]">alt_route</span>
+<div class="flex flex-col">
+<span class="font-label-ui text-label-ui text-on-surface font-semibold">OSRM Fietsnetwerk</span>
+<span class="font-label-data text-label-data text-slate-muted">NL Knooppunten geïntegreerd</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Interactive Logic & Micro-interactions Script -->
+<script>
+    function selectSpeed(speed, name, etaText, btn) {
+      document.querySelectorAll('.speed-btn').forEach(b => {
+        b.classList.remove('active-speed', 'bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+        b.classList.add('text-slate-muted');
+      });
+      btn.classList.add('active-speed', 'bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+      btn.classList.remove('text-slate-muted');
+      
+      const label = document.getElementById('speed-label');
+      if (label) label.innerText = etaText;
+    }
+
+    function showTooltip(segment, eta, speed, sun, wind) {
+      const tip = document.getElementById('route-tooltip');
+      const s = document.getElementById('tooltip-segment');
+      const e = document.getElementById('tooltip-eta');
+      const su = document.getElementById('tooltip-sun');
+      const w = document.getElementById('tooltip-wind');
+      
+      if (tip && s && e && su && w) {
+        s.innerText = segment;
+        e.innerText = 'ETA ' + eta;
+        su.innerText = sun;
+        w.innerText = wind;
+        tip.classList.remove('opacity-0');
+        tip.classList.add('opacity-100');
+      }
+    }
+
+    function applySmartDepartureTime() {
+      const input = document.getElementById('departure-time-input');
+      const banner = document.getElementById('smart-advisor-banner');
+      if (input) {
+        input.value = "18:00 uur";
+      }
+      if (banner) {
+        banner.innerHTML = `
+          <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-wind-favorable-green"></div>
+          <div class="flex items-center gap-3.5 pl-2 py-1">
+            <div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center text-tertiary shrink-0">
+              <span class="material-symbols-outlined text-[24px]">verified</span>
+            </div>
+            <div>
+              <span class="font-label-ui text-label-ui text-tertiary uppercase tracking-wider font-semibold">Optimale Vertrektijd Actief (18:00)</span>
+              <p class="font-body-md text-body-md text-on-surface mt-0.5">
+                De zon staat nu op 8&deg; achter bebouwing. Verblindingspercentage gedaald van <strong>12% naar 0%</strong>!
+              </p>
+            </div>
+          </div>
+          <button type="button" onclick="resetDepartureTime()" class="px-3 py-1.5 rounded-DEFAULT bg-slate-surface text-slate-dark font-label-data text-label-data hover:bg-surface-container">Herstel 17:15</button>
+        `;
+      }
+    }
+
+    function resetDepartureTime() {
+      const input = document.getElementById('departure-time-input');
+      if (input) input.value = "17:15 uur";
+      location.reload();
+    }
+
+    function shiftDeparture(minutes) {
+      const input = document.getElementById('departure-time-input');
+      if (minutes === 45) {
+        applySmartDepartureTime();
+      } else if (minutes === -30) {
+        if (input) input.value = "16:45 uur";
+      } else if (minutes === 15) {
+        if (input) input.value = "17:30 uur";
+      } else if (minutes === 60) {
+        if (input) input.value = "18:15 uur";
+      }
+    }
+
+    function triggerRecalculation() {
+      const btn = document.getElementById('calc-button');
+      if (btn) {
+        const origText = btn.innerHTML;
+        btn.innerHTML = `
+          <span class="material-symbols-outlined animate-spin text-[20px]">sync</span>
+          <span>Analyseren via Open-Meteo & OSRM...</span>
+        `;
+        setTimeout(() => {
+          btn.innerHTML = `
+            <span class="material-symbols-outlined text-wind-favorable-green text-[20px]">check_circle</span>
+            <span>Route Bijgewerkt! (1.18s)</span>
+          `;
+          setTimeout(() => {
+            btn.innerHTML = origText;
+          }, 1800);
+        }, 1200);
+      }
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] mt-space-xl"><div class="max-w-7xl mx-auto px-margin py-space-lg flex flex-col sm:flex-row items-center justify-between gap-space-md font-body-sm text-body-sm text-slate-muted"><div class="flex items-center gap-space-xs"><span class="font-label-ui text-label-ui text-on-surface font-semibold">ZonTraject</span><span>— Realtime zonnestand en windvector berekeningen voor fietsers in Nederland en Vlaanderen.</span></div><div class="flex items-center gap-space-lg font-label-data text-label-data"><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-tertiary">bolt</span> OSRM Routing Engine</span><span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-secondary">cloud_sync</span> Open-Meteo Solar API</span></div></div></footer></body></html>

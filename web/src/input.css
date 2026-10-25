@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@source "../static";
+
+/* Fonts lokaal (zie scripts/vendor.mjs). Paden zijn relatief t.o.v. static/app.css. */
+@font-face {
+  font-family: "Inter Variable";
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("vendor/fonts/inter-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono Variable";
+  font-weight: 100 800;
+  font-display: swap;
+  src: url("vendor/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2");
+}
+
+/* Design tokens: de slate/amber-kleuren uit de tekst van DESIGN.md ("Dutch Solar Vector").
+   "static": alle variabelen worden altijd uitgeschreven, want app.js leest ze voor de kaart. */
+@theme static {
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --color-canvas: #f8fafc;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+  --color-ink: #0f172a;
+  --color-ink-soft: #334155;
+  --color-muted: #64748b;
+  --color-neutral-state: #94a3b8; /* bewolkt / zijwind */
+
+  --color-primary: #d97706;
+  --color-primary-hover: #b45309;
+  --color-sun: #f59e0b;
+  --color-wind: #0284c7;
+  --color-ok: #10b981; /* wind mee */
+  --color-alert: #ef4444; /* verblinding / tegenwind */
+  --color-alert-bg: #fef2f2;
+  --color-alert-border: #fca5a5;
+}
+
+@layer base {
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .field {
+    @apply mt-1 w-full rounded border border-line-strong bg-white px-3 py-2 text-sm outline-none focus:border-wind focus:ring-2 focus:ring-wind;
+  }
+  .bike {
+    @apply rounded border border-line px-2 py-2 text-sm hover:bg-slate-100 aria-pressed:border-primary aria-pressed:bg-amber-50 aria-pressed:text-primary-hover;
+  }
+  .mode {
+    @apply hover:bg-slate-100 aria-pressed:bg-ink aria-pressed:text-white;
+  }
+}

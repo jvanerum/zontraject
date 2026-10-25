@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Frontend (gebouwd met `cd web && npm run build`)
+web/node_modules/
+web/static/app.css
+web/static/vendor/
+
+# Secrets / lokale data
+.env
+.streamlit/secrets.toml
+cache/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

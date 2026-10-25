@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ZonTraject — Fietsroute Zon- &amp; Windplanner</title>
+    <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="app.css" />
+  </head>
+  <body class="min-h-screen">
+    <header class="border-b border-line bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 lg:px-6">
+        <span class="text-lg font-semibold">ZonTraject <span class="text-sun">☀</span></span>
+        <span class="font-mono text-[11px] tracking-wider text-muted uppercase">v0.1 · lokaal prototype</span>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-6 lg:px-6">
+      <h1 class="text-[28px] leading-9 font-bold tracking-tight lg:text-4xl lg:leading-[44px]">
+        ZonTraject — Fietsroute Zon- &amp; Windplanner
+      </h1>
+      <p class="mt-1 max-w-2xl text-muted">
+        Zie hoeveel zon, verblinding en tegenwind je onderweg krijgt, per stuk van je rit van A naar B.
+      </p>
+
+      <div class="mt-6 grid gap-6 lg:grid-cols-12">
+        <!-- Routeparameters -->
+        <form id="form" class="h-fit space-y-4 rounded border border-line bg-white p-5 lg:col-span-4">
+          <h2 class="text-base font-semibold">Routeparameters</h2>
+
+          <label class="block">
+            <span class="text-xs font-semibold">Startadres (punt A)</span>
+            <input name="start" required placeholder="bv. Utrecht Centraal" class="field" />
+          </label>
+          <label class="block">
+            <span class="text-xs font-semibold">Eindadres (punt B)</span>
+            <input name="end" required placeholder="bv. Amersfoort Varkensmarkt" class="field" />
+          </label>
+
+          <div class="grid grid-cols-2 gap-3">
+            <label class="block">
+              <span class="text-xs font-semibold">Vertrekdatum</span>
+              <input name="date" type="date" required class="field font-mono" />
+            </label>
+            <label class="block">
+              <span class="text-xs font-semibold">Vertrektijd</span>
+              <input name="time" type="time" required class="field font-mono" />
+            </label>
+          </div>
+
+          <fieldset>
+            <legend class="text-xs font-semibold">Fietstype &amp; gemiddelde snelheid</legend>
+            <div class="mt-1 grid grid-cols-3 gap-2" id="bike-types">
+              <button type="button" data-speed="18" class="bike">Stad<br /><small class="num font-mono">18 km/u</small></button>
+              <button type="button" data-speed="25" class="bike">E-bike<br /><small class="num font-mono">25 km/u</small></button>
+              <button type="button" data-speed="35" class="bike">Pedelec<br /><small class="num font-mono">35 km/u</small></button>
+            </div>
+            <input name="speed" type="number" min="6" max="50" step="1" value="18" required
+                   class="field num mt-2 font-mono" aria-label="Snelheid in km/u" />
+          </fieldset>
+
+          <fieldset class="space-y-2">
+            <legend class="font-mono text-[11px] tracking-wider text-muted uppercase">Voorkeursfilters</legend>
+            <label class="flex gap-2 rounded border border-line p-2">
+              <input type="checkbox" name="avoid_sun" checked class="mt-1 accent-primary" />
+              <span><span class="text-sm font-semibold">Vermijd zon in de ogen</span><br />
+                <small class="text-muted">zonnehoogte ≤ 25° en &lt; 30° naast je rijrichting</small></span>
+            </label>
+            <label class="flex gap-2 rounded border border-line p-2">
+              <input type="checkbox" name="avoid_wind" checked class="mt-1 accent-primary" />
+              <span><span class="text-sm font-semibold">Vermijd tegenwind</span><br />
+                <small class="text-muted">wind &lt; 45° t.o.v. je rijrichting</small></span>
+            </label>
+          </fieldset>
+
+          <button id="submit" class="w-full rounded bg-primary px-4 py-3 font-bold text-white hover:bg-primary-hover disabled:opacity-60">
+            Bereken route &amp; profiel
+          </button>
+          <p id="error" class="hidden rounded border border-alert-border bg-alert-bg p-2 text-sm text-alert"></p>
+        </form>
+
+        <!-- Resultaten -->
+        <section class="space-y-6 lg:col-span-8">
+          <div id="empty" class="rounded border border-dashed border-line-strong bg-white p-8 text-center text-muted">
+            Vul je route in en klik op <strong>Bereken route &amp; profiel</strong>.
+          </div>
+
+          <div id="results" class="hidden space-y-6">
+            <!-- Vertrekadvies -->
+            <div id="advice" class="hidden rounded-lg border border-line border-l-[3px] border-l-primary bg-white p-4">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <p id="advice-text" class="max-w-xl text-sm"></p>
+                <button id="advice-apply" type="button" class="rounded bg-primary px-3 py-2 text-sm font-semibold text-white hover:bg-primary-hover"></button>
+              </div>
+            </div>
+
+            <!-- Meters -->
+            <div class="grid gap-4 md:grid-cols-2">
+              <div class="rounded border border-line bg-white p-4">
+                <div class="flex justify-between"><h3 class="font-semibold">Zon-blootstelling</h3>
+                  <span id="route-meta" class="num font-mono text-[11px] text-muted"></span></div>
+                <p class="mt-2"><span id="sun-main" class="num font-mono text-3xl font-semibold"></span>
+                  <span class="text-sm text-muted">volle zon</span></p>
+                <div id="sun-bar" class="mt-3 flex h-2 overflow-hidden rounded-sm bg-line"></div>
+                <ul id="sun-legend" class="mt-2 flex flex-wrap gap-x-4 font-mono text-[11px]"></ul>
+              </div>
+              <div class="rounded border border-line bg-white p-4">
+                <div class="flex justify-between"><h3 class="font-semibold">Windprofiel &amp; kracht</h3>
+                  <span id="wind-meta" class="num font-mono text-[11px] text-wind"></span></div>
+                <p class="mt-2"><span id="wind-main" class="num font-mono text-3xl font-semibold text-ok"></span>
+                  <span class="text-sm text-muted">wind mee</span></p>
+                <div id="wind-bar" class="mt-3 flex h-2 overflow-hidden rounded-sm bg-line"></div>
+                <ul id="wind-legend" class="mt-2 flex flex-wrap gap-x-4 font-mono text-[11px]"></ul>
+              </div>
+            </div>
+
+            <!-- Kaart -->
+            <div class="rounded border border-line bg-white p-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 id="map-title" class="font-semibold">Trajectkaart</h3>
+                <div class="flex rounded border border-line-strong text-sm" role="group" aria-label="Kaartweergave">
+                  <button type="button" data-mode="sun" class="mode px-3 py-1">Zon</button>
+                  <button type="button" data-mode="wind" class="mode px-3 py-1">Wind</button>
+                </div>
+              </div>
+              <div id="map" class="mt-3 h-[420px] rounded"></div>
+              <ul id="map-legend" class="mt-2 flex flex-wrap gap-x-4 font-mono text-[11px]"></ul>
+            </div>
+
+            <!-- Segmenttijdlijn -->
+            <div class="rounded border border-line bg-white p-4">
+              <h3 class="font-semibold">Segmenttijdlijn</h3>
+              <div class="mt-3 overflow-x-auto">
+                <table class="num w-full font-mono text-xs">
+                  <thead class="text-left text-[11px] tracking-wider text-muted uppercase">
+                    <tr class="border-b border-line">
+                      <th class="py-2 pr-3">Km</th><th class="pr-3">ETA</th><th class="pr-3">Rijrichting</th>
+                      <th class="pr-3">Zon (az / h)</th><th class="pr-3">Wind</th><th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="timeline"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="mx-auto max-w-6xl px-4 py-6 text-xs text-muted lg:px-6">
+      ZonTraject — routes: OSRM (routing.openstreetmap.de) · adressen: Nominatim · weer: Open-Meteo ·
+      zonnestand lokaal berekend · kaart © OpenStreetMap-bijdragers
+    </footer>
+
+    <script src="vendor/leaflet/leaflet.js"></script>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
