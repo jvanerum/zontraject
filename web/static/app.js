@@ -1,5 +1,9 @@
-// ZonTraject frontend: formulier → POST /api/analyse → meters, kaart (Zon/Wind) en tijdlijn.
+// ZonTraject frontend: formulier → analyse → meters, kaart (Zon/Wind) en tijdlijn.
+// Draait de Python-server mee (/api/health), dan rekent die; anders rekent de browser zelf
+// (engine/, bv. op Netlify). Beide geven hetzelfde antwoord.
 /* global L */
+
+import { analyseRoute, ServiceError } from "./engine/index.js";
 
 const $ = (sel) => document.querySelector(sel);
 const form = $("#form");
@@ -74,30 +78,52 @@ async function run() {
   btn.disabled = true;
   btn.textContent = "Bezig met berekenen…";
   err.classList.add("hidden");
+  const req = {
+    start: form.start.value,
+    end: form.end.value,
+    departure: `${form.date.value}T${form.time.value}`,
+    speed_kmh: Number(form.speed.value),
+    avoid_sun: form.avoid_sun.checked,
+    avoid_wind: form.avoid_wind.checked,
+  };
   try {
-    const res = await fetch("/api/analyse", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        start: form.start.value,
-        end: form.end.value,
-        departure: `${form.date.value}T${form.time.value}`,
-        speed_kmh: Number(form.speed.value),
-        avoid_sun: form.avoid_sun.checked,
-        avoid_wind: form.avoid_wind.checked,
-      }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(typeof data.detail === "string" ? data.detail : "Ongeldige invoer.");
+    const data = (await serverAvailable()) ? await analyseOnServer(req) : await analyseRoute(req);
     lastData = data;
     render(data);
   } catch (e) {
-    err.textContent = e.message;
+    console.error(e);
+    err.textContent = e instanceof ServiceError ? e.message : "Er ging iets mis bij het berekenen. Probeer het opnieuw.";
     err.classList.remove("hidden");
   } finally {
     btn.disabled = false;
     btn.textContent = "Bereken route & profiel";
   }
+}
+
+// --- Rekenen: Python-server als die er is, anders in de browser ------------------------------
+let useServer = null;
+
+async function serverAvailable() {
+  if (useServer === null) {
+    try {
+      const res = await fetch("/api/health");
+      useServer = res.ok && (await res.json()).ok === true;
+    } catch {
+      useServer = false; // geen server (statische hosting) of geen JSON
+    }
+  }
+  return useServer;
+}
+
+async function analyseOnServer(req) {
+  const res = await fetch("/api/analyse", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(req),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new ServiceError(typeof data.detail === "string" ? data.detail : "Ongeldige invoer.");
+  return data;
 }
 
 // --- Weergave -------------------------------------------------------------------------------

@@ -21,6 +21,16 @@ uv run uvicorn zontraject.main:app --reload       # http://127.0.0.1:8000
 ```
 Of alles in één keer controleren: `bash init.sh`.
 
+## Online zetten
+Er zijn twee manieren. De pagina kiest zelf: draait de Python-server mee, dan rekent die, anders de browser.
+
+| | **A. Netlify (statisch)** | **B. Render (Python-server)** |
+|---|---|---|
+| Rekenen | in de browser (`web/static/engine/`) | op de server (`src/zontraject/`) |
+| Instellingen | `netlify.toml` (wordt automatisch gelezen) | `Dockerfile` + `render.yaml` |
+| Hoe | Netlify → *Add new site* → *Import from Git* → deze repo. Laat de velden leeg; `netlify.toml` regelt base, build en publish. | Render → *New* → *Blueprint* → deze repo. |
+| Kosten | gratis | gratis plan; de server slaapt na inactiviteit (eerste keer laden ±1 min) |
+
 ## Structuur
 | Pad | Rol |
 |---|---|
@@ -30,5 +40,7 @@ Of alles in één keer controleren: `bash init.sh`.
 | `src/zontraject/services.py` | Nominatim, OSRM-fiets, Open-Meteo |
 | `src/zontraject/main.py` | FastAPI: `POST /api/analyse` + de statische frontend |
 | `web/static/` | `index.html` + `app.js` (Leaflet-kaart met schakelaar Zon/Wind) |
+| `web/static/engine/` | Dezelfde rekenlogica in JavaScript (voor statische hosting) |
+| `web/test/` | Tests voor de browser-engine (`npm test`) |
 | `web/src/input.css` | Tailwind 4 + design tokens |
 | `tests/` | pytest, zonder netwerk |

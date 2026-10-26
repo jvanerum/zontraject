@@ -1,5 +1,25 @@
 # PROGRESS — ZonTraject
 
+## 2026-10-26 20:00 — Online zetten: Netlify (statisch) én Render (Python)
+- **Probleem:** de deploy op Netlify werkte niet. ZonTraject was een FastAPI-app, en Netlify draait geen Python. Daarnaast stond de pagina in `web/static/` en waren `app.css` en `vendor/` niet gebouwd.
+- **Gedaan:**
+  - Rekenlogica in JavaScript: `web/static/engine/` (geo, conditions met NOAA-zonnestand, analyse, services, index).
+  - `app.js` kiest zelf: `/api/health` ok → server, anders de browser.
+  - `netlify.toml` (base `web`, `npm ci && npm test && npm run build`, publish `static`).
+  - `Dockerfile` + `render.yaml` + `.dockerignore` voor Render.
+  - Gemiddelde wind afgerond op 0,1 km/u (Python én JS), zodat de Beaufort-grens gelijk valt.
+- **Geverifieerd:**
+  - pytest 37 en `node --test` 17 geslaagd; ruff schoon.
+  - De zonnestand in JS is identiek aan astral (200 willekeurige gevallen, afwijking 0,000°).
+  - Beide engines zijn identiek op dezelfde route en hetzelfde weer (max afwijking 7,6e-13).
+  - Het Netlify-buildcommando lukt lokaal vanaf nul. Als statische site (zonder Python) werkt de pagina in de browser, inclusief advies.
+  - Via de Python-server gebruikt de pagina wel `/api/analyse`.
+- **Niet geverifieerd:**
+  - de echte Netlify-deploy;
+  - de Docker-build (Docker staat niet op deze pc);
+  - de Render-deploy.
+- **Let op:** Nominatim kan voor dezelfde zoekterm een iets ander punt geven, afhankelijk van de client (±100 m). Daardoor verschillen de routes tussen browser en server soms een beetje.
+
 ## 2026-10-25 16:12 — Handover
 - **Gedaan:** HANDOVER.md bijgewerkt en gearchiveerd in `handover/HANDOVER-2026-10-25-1612.md`.
 - **Geverifieerd:** pytest 37 geslaagd, ruff schoon. `main` staat 1 doc-commit voor op `origin/main`.

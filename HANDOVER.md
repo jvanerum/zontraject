@@ -45,7 +45,8 @@ Een eenvoudige webapp die een fietser per routesegment toont hoeveel zon, verbli
 
 <decisions>
 De volledige lijst staat in AGENTS.md. Kort:
-- **Stack:** FastAPI + statische HTML/vanilla JS/Tailwind 4/Leaflet. Geen Streamlit, geen frontend-framework. **Eenvoud gaat altijd voor.**
+- **Stack:** statische HTML/vanilla JS/Tailwind 4/Leaflet. Geen Streamlit, geen frontend-framework. **Eenvoud gaat altijd voor.**
+- **Twee engines (2026-10-26):** JS in `web/static/engine/` voor Netlify, Python/FastAPI in `src/zontraject/` voor Render of lokaal. `app.js` kiest via `/api/health`. Rekenlogica wijzig je altijd in beide, met tests aan beide kanten.
 - **Kaart in 2 dimensies** met een schakelaar:
   - Zon: rood = verblinding, amber = zon, slate = bewolkt of donker.
   - Wind: rood = tegen, slate = zij, groen = mee.
@@ -87,6 +88,10 @@ De volledige lijst staat in AGENTS.md. Kort:
 </verification>
 
 <next_steps>
+0. **Deploy controleren (2026-10-26):**
+   - Netlify: een nieuwe deploy na de push moet de site tonen en in de browser rekenen.
+   - Render: Blueprint vanuit `render.yaml`.
+   - De Docker-build is nog nooit gedraaid.
 1. Controleer dat de gebruiker `git push` heeft gedaan: `git status -sb` mag geen "ahead" tonen. Controleer of uv geïnstalleerd is (`winget install astral-sh.uv`) en of `.\start.ps1` werkt. Vraag of de dubbele PRD in `design/` weg mag.
 2. Verifieer verblinding live: kies een zonnige dag (bewolking < 70% in Open-Meteo) en een westwaartse rit 1–2 u voor zonsondergang, bv. Amersfoort → Utrecht. Controleer de rode segmenten in de Zon-weergave en de knop "Pas aan naar …".
 3. Maak de tijdlijn rustiger. Twee opties; de eenvoudigste eerst:

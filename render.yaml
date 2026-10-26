@@ -1,0 +1,8 @@
+# Render (optie B): Python-server via de Dockerfile. In Render: New → Blueprint → deze repo.
+services:
+  - type: web
+    name: zontraject
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true

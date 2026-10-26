@@ -17,7 +17,7 @@ uv sync -q && uv run pytest -q && uv run ruff check .
 
 if command -v npm >/dev/null; then
   echo "== Frontend: install + build"
-  (cd web && npm install --silent --no-fund --no-audit && npm run build)
+  (cd web && npm install --silent --no-fund --no-audit && npm test && npm run build)
 else
   echo "== Frontend overgeslagen (Node ontbreekt)"
 fi

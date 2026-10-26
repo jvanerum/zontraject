@@ -131,7 +131,8 @@ def summarize(results: list[SegmentResult]) -> dict:
             s: sum(r.length_km for r in results if getattr(r, attr) == s) / total for s in states
         }
 
-    avg_wind = sum(r.wind_kmh * r.length_km for r in results) / total
+    # Afronden op 0,1 km/u: zo geven Python en de browser-engine dezelfde Beaufort op een grens.
+    avg_wind = round(sum(r.wind_kmh * r.length_km for r in results) / total, 1)
     return {
         "distance_km": total,
         "sun": shares("sun", ("zon", "bewolkt", "verblinding", "donker")),

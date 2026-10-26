@@ -9,7 +9,12 @@
 - **Sessie-overdracht:** `/handover` aan het einde, `/resume` aan het begin (`.agents/skills/`).
 
 ## Beslissingen (2026-10-25, niet heropenen)
-- **Stack:** FastAPI-backend (`src/zontraject/`) + statische frontend (`web/`): HTML, vanilla JS, Tailwind 4 en Leaflet. Geen Streamlit, geen frontend-framework.
+- **Stack:** statische frontend (`web/`): HTML, vanilla JS, Tailwind 4 en Leaflet. Geen Streamlit, geen frontend-framework.
+- **Twee engines met dezelfde logica (2026-10-26):**
+  - `web/static/engine/` (JS) rekent in de browser, zodat de site statisch op **Netlify** draait (`netlify.toml`).
+  - `src/zontraject/` (Python/FastAPI) draait als server, bv. op **Render** (`Dockerfile`, `render.yaml`) of lokaal.
+  - `app.js` vraagt `/api/health`: is er een server, dan rekent die, anders de browser.
+  - **Elke wijziging aan de rekenlogica gebeurt in beide**, met tests aan beide kanten (`tests/` en `web/test/`). Beide geven hetzelfde antwoord-JSON.
 - **Eenvoud gaat voor.** Kies bij twijfel de eenvoudigste oplossing.
 - **Assets lokaal gebundeld via npm:** Tailwind, Leaflet en de fonts Inter en JetBrains Mono. Geen CDN's of Google Fonts.
   - Externe verzoeken alleen naar Nominatim, OSRM, Open-Meteo en de OSM-kaarttegels.
@@ -38,5 +43,6 @@
 |---|---|
 | Frontend-assets bouwen | `cd web && npm install && npm run build` |
 | Server starten | `uv run uvicorn zontraject.main:app --reload` → http://127.0.0.1:8000 |
-| Tests | `uv run pytest` |
+| Tests (Python) | `uv run pytest` |
+| Tests (browser-engine) | `cd web && npm test` |
 | Lint | `uv run ruff check .` |

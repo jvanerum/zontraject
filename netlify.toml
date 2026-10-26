@@ -1,0 +1,9 @@
+# Netlify (optie A): statische site, de browser rekent zelf (web/static/engine/).
+# Netlify leest dit bestand automatisch; in de site-instellingen hoeft niets ingevuld.
+[build]
+  base = "web"
+  command = "npm ci && npm test && npm run build"
+  publish = "static" # relatief t.o.v. base → web/static
+
+[build.environment]
+  NODE_VERSION = "22"
